@@ -25,8 +25,7 @@ SECRET_KEY = '#$=k@0&wm&%d9^nm*u39za(f@+n-(h2#0%k6#pf$5j5+knz8t0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['95.79.101.224', '127.0.0.1']
 
 # Application definition
 
@@ -41,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
 
     'firstapp',
+    'iosbackdrf',
 ]
 
 MIDDLEWARE = [
