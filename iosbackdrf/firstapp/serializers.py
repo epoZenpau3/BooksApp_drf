@@ -3,12 +3,9 @@ from .models import Books, Author
 
 
 class BookSerializer(serializers.ModelSerializer):
-    author_first_name = serializers.CharField(source='author.name')
-    author_second_name = serializers.CharField(source='author.second_name')
-
     class Meta:
         model = Books
-        fields = ['id', 'title', 'author', 'color', 'author_first_name', 'author_second_name']
+        fields = ['id', 'title', 'color']
 
 
 class BookCreateSerializer(serializers.ModelSerializer):
@@ -17,7 +14,18 @@ class BookCreateSerializer(serializers.ModelSerializer):
         fields = ['id', 'title', 'author', 'color']
 
 
-class AuthorSerializer(serializers.ModelSerializer):
+class BookCreateSerializer(serializers.ModelSerializer):
+    books = BookSerializer(many=True)
+
     class Meta:
         model = Author
-        fields = '__all__'
+        fields = ['id', 'name', 'second_name', 'books']
+
+    def create(self, validated_data):
+        books_data = validated_data.pop('books')
+        author, created = Author.objects.update_or_create(**validated_data)
+        print(author)
+        print(created)
+        for books_data in books_data:
+            Books.objects.create(author=author, **books_data)
+        return author
