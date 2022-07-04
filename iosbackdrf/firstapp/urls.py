@@ -13,5 +13,5 @@ urlpatterns = [
     path('book/detail/<int:pk>/', views.BookViewSet.as_view({'put': 'update', 'get': 'retrieve'})),
     path('book/create/', views.AuthorViewSet.as_view({'post': 'create'})),
     path('author/', views.AuthorViewSet.as_view({'get': 'list'})),
-    path('author/detail/<int:pk>/', views.AuthorViewSet.as_view({'post': 'create'})),
+    path('author/detail/<int:pk>/', views.AuthorViewSet.as_view({'get': 'retrieve', 'post': 'create', 'put': 'update'}))
 ]
