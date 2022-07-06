@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from rest_framework import generics, viewsets
 from .serializers import BookSerializer, BookCreateSerializer
 from .models import Books, Author
+from rest_framework.permissions import IsAuthenticated
 
 
 def index(request):
@@ -16,6 +17,7 @@ class BookViewSet(viewsets.ModelViewSet):
 class AuthorViewSet(viewsets.ModelViewSet):
     queryset = Author.objects.all()
     serializer_class = BookCreateSerializer
+    permission_classes = [IsAuthenticated]
 
 
 # class BookApiCreateView(generics.CreateAPIView):

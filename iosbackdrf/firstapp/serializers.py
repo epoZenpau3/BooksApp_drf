@@ -24,8 +24,6 @@ class BookCreateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         books_data = validated_data.pop('books')
         author, created = Author.objects.update_or_create(**validated_data)
-        print(author)
-        print(created)
         for books_data in books_data:
             Books.objects.create(author=author, **books_data)
         return author
